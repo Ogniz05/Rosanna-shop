@@ -1,0 +1,18 @@
+/* Stili globali e classi comuni */
+
+:root {
+  --max-width: 1200px;
+  --container-padding: 16px;
+}
+
+body {
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
