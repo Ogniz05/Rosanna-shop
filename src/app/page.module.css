@@ -3,72 +3,47 @@
 }
 
 /* ===========================
-   HERO SECTION
+   HERO CON EFFETTO PARALLAX
 =========================== */
 .hero {
-  position: relative;
-  width: 100%;
+  position: sticky;
+  top: 0;
   height: 100vh;
+  width: 100%;
   overflow: hidden;
-}
-
-.imageContainer {
-  position: absolute;
-  inset: 0;
+  z-index: 1;
 }
 
 .heroImage {
   object-fit: cover;
   object-position: center 25%;
-  filter: brightness(72%);
-  transition: transform 10s ease;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-out;
 }
 
-.hero:hover .heroImage {
-  transform: scale(1.03);
-}
-
-.overlay {
+.heroContent {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 1;
-}
-
-/* ✅ sfumatura inferiore per fusione con i prodotti */
-.fadeBottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 180px;
-  background: linear-gradient(to bottom, transparent, #fff);
-  z-index: 2;
-}
-
-.heroText {
-  position: relative;
-  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 700px;
-  animation: fadeIn 1.5s ease forwards;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.heroText h1 {
+.heroContent h1 {
   font-family: "Playfair Display", serif;
   font-size: 3rem;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 0.4rem;
   font-weight: 400;
 }
 
-.heroText p {
+.heroContent p {
   font-size: 1.2rem;
   margin-bottom: 1.8rem;
   letter-spacing: 0.06em;
@@ -89,43 +64,19 @@
   background-color: #9c876f;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -40%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
 /* ===========================
-   DESKTOP OTTIMIZZAZIONE
+   RESPONSIVE
 =========================== */
 @media (min-width: 1024px) {
-  .hero {
-    height: 90vh;
-  }
-
-  .heroImage {
-    object-position: center 25%;
-  }
-
-  .heroText h1 {
+  .heroContent h1 {
     font-size: 5rem;
-    letter-spacing: 0.08em;
   }
 
-  .heroText p {
+  .heroContent p {
     font-size: 1.3rem;
   }
 
   .button {
     font-size: 1rem;
-  }
-
-  .fadeBottom {
-    height: 220px;
   }
 }

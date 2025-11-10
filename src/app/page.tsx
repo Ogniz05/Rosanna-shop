@@ -6,20 +6,16 @@ import BestSellers from "@/components/home/BestSellers";
 export default function HomePage() {
   return (
     <main className={styles.home}>
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className={styles.hero}>
-        <div className={styles.imageContainer}>
-          <Image
-            src="/images/hero.jpg"
-            alt="Shop Rosa - Nuova Collezione"
-            fill
-            priority
-            className={styles.heroImage}
-          />
-          <div className={styles.overlay}></div>
-        </div>
-
-        <div className={styles.heroText}>
+        <Image
+          src="/images/hero.jpg"
+          alt="Shop Rosa - Nuova Collezione"
+          fill
+          priority
+          className={styles.heroImage}
+        />
+        <div className={styles.heroContent}>
           <h1>Shop Rosa</h1>
           <p>Nuova Collezione 2025</p>
           <Link href="/shop" className={styles.button}>
@@ -28,7 +24,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* BEST SELLERS SECTION */}
+      {/* BEST SELLERS */}
       <BestSellers />
     </main>
   );

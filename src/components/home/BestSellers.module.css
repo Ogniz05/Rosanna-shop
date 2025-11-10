@@ -2,54 +2,48 @@
   position: relative;
   z-index: 2;
   background-color: #fff;
-  padding: 6rem 1rem 4rem;
+  padding: 1.2rem 1rem 3.5rem; /* ✅ molto meno spazio sopra */
   overflow-x: hidden;
-  opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 1s ease, transform 1s ease;
+  margin-top: -8vh; /* ✅ resta l’effetto cover sopra la hero */
 }
 
-/* ✅ si attiva quando la sezione entra nel viewport */
-.bestSellers.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Titolo */
 .bestSellers h2 {
   font-family: "Playfair Display", serif;
-  font-size: 1.6rem;
+  font-size: 1.1rem; /* ✅ più piccolo */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem; /* ✅ pochissimo spazio sotto */
   color: #1a1a1a;
   text-align: center;
+  font-weight: 400;
 }
 
-/* ===== GRIGLIA ===== */
+/* Griglia */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2rem;
+  gap: 0.8rem;
   width: 100%;
   box-sizing: border-box;
   justify-items: center;
 }
 
-/* ===== CARD ===== */
+/* Card */
 .card {
   width: 100%;
-  max-width: 180px;
+  max-width: 160px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
   background: transparent;
   border: none;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 }
 
 .imageWrapper {
@@ -65,33 +59,33 @@
 }
 
 .card:hover .image {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .card h3 {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 400;
   color: #1a1a1a;
-  margin-top: 0.7rem;
-  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .card p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #000;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .button {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #1a1a1a;
   text-decoration: none;
   border: 1px solid #b09b84;
-  padding: 0.4rem 1rem;
+  padding: 0.35rem 0.9rem;
   transition: all 0.3s ease;
 }
 
@@ -100,38 +94,55 @@
   color: #fff;
 }
 
-/* ===== TABLET ===== */
+/* Tablet */
 @media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.8rem;
-  }
-
-  .card {
-    max-width: 240px;
-  }
-}
-
-/* ===== DESKTOP ===== */
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
+  .bestSellers {
+    padding: 2rem 2rem 4rem;
+    margin-top: -7vh;
   }
 
   .bestSellers h2 {
-    font-size: 2rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
   }
 
   .card {
-    max-width: 280px;
+    max-width: 210px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .bestSellers {
+    margin-top: -14vh;
+    padding: 2.5rem 3rem 5rem;
+  }
+
+  .bestSellers h2 {
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    max-width: 260px;
   }
 
   .card h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .card p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
