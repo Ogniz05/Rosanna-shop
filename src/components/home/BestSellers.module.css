@@ -1,0 +1,137 @@
+.bestSellers {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  padding: 6rem 1rem 4rem;
+  overflow-x: hidden;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* ✅ si attiva quando la sezione entra nel viewport */
+.bestSellers.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bestSellers h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2.5rem;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* ===== GRIGLIA ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+  justify-items: center;
+}
+
+/* ===== CARD ===== */
+.card {
+  width: 100%;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: transparent;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.card h3 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-top: 0.7rem;
+  margin-bottom: 0.2rem;
+}
+
+.card p {
+  font-size: 0.85rem;
+  color: #000;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.button {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  text-decoration: none;
+  border: 1px solid #b09b84;
+  padding: 0.4rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #b09b84;
+  color: #fff;
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.8rem;
+  }
+
+  .card {
+    max-width: 240px;
+  }
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .bestSellers h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    max-width: 280px;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+  }
+}
