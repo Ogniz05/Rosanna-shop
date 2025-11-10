@@ -35,6 +35,7 @@ export default function BestSellers() {
       className={`${styles.bestSellers} ${visible ? styles.visible : ""}`}
     >
       <h2>I più venduti</h2>
+
       <div className={styles.grid}>
         {products.map((product) => (
           <div key={product.id} className={styles.card}>
@@ -53,6 +54,13 @@ export default function BestSellers() {
             </Link>
           </div>
         ))}
+      </div>
+
+      {/* ✅ Bottone “Sfoglia il catalogo” sotto le card */}
+      <div className={styles.catalogButtonWrapper}>
+        <Link href="/shop" className={styles.catalogButton}>
+          Sfoglia il catalogo
+        </Link>
       </div>
     </section>
   );
