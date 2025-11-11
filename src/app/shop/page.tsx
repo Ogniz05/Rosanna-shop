@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import styles from "./shop.module.css";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-/* ---- DATI MOCK ---- */
+/* Mock prodotti */
 const products = [
   { id: 1, name: "Blazer Oversize", price: "€59.99", image: "/images/prod1.jpg" },
   { id: 2, name: "Abito in lino", price: "€49.99", image: "/images/prod2.jpg" },
@@ -16,29 +17,21 @@ const products = [
   { id: 8, name: "Cappotto Lungo", price: "€89.99", image: "/images/prod8.jpg" },
 ];
 
-/* ---- DROPDOWN CUSTOM ---- */
+/* Dropdown custom */
 type Option = { label: string; value: string };
 
 function CustomSelect({
-  label,
-  options,
-  className,
-}: {
-  label: string;
-  options: Option[];
-  className?: string;
-}) {
+  label, options, className,
+}: { label: string; options: Option[]; className?: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
-    function onClickOutside(e: MouseEvent) {
+    const onClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
+    };
     document.addEventListener("click", onClickOutside);
     return () => document.removeEventListener("click", onClickOutside);
   }, []);
-
   return (
     <div ref={ref} className={`${styles.customSelect} ${className || ""}`}>
       <button
@@ -46,16 +39,22 @@ function CustomSelect({
         className={styles.trigger}
         aria-haspopup="listbox"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(v => !v)}
       >
         {label}
         <span className={styles.chevron} aria-hidden>⌄</span>
       </button>
 
       <ul className={`${styles.menu} ${open ? styles.open : ""}`} role="listbox">
-        {options.map((opt) => (
-          <li key={opt.value} className={styles.option} role="option" tabIndex={0}
-              onClick={() => setOpen(false)} onKeyDown={(e) => e.key === "Enter" && setOpen(false)}>
+        {options.map(opt => (
+          <li
+            key={opt.value}
+            className={styles.option}
+            role="option"
+            tabIndex={0}
+            onClick={() => setOpen(false)}
+            onKeyDown={(e) => e.key === "Enter" && setOpen(false)}
+          >
             {opt.label}
           </li>
         ))}
@@ -65,6 +64,10 @@ function CustomSelect({
 }
 
 export default function ShopPage() {
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const toggleFavorite = (id: number) =>
+    setFavorites(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]);
+
   const filterOptions: Option[] = [
     { label: "Tutti", value: "all" },
     { label: "Abiti", value: "abiti" },
@@ -72,7 +75,6 @@ export default function ShopPage() {
     { label: "Pantaloni", value: "pantaloni" },
     { label: "Accessori", value: "accessori" },
   ];
-
   const sortOptions: Option[] = [
     { label: "Popolarità", value: "pop" },
     { label: "Prezzo crescente", value: "price_asc" },
@@ -84,9 +86,9 @@ export default function ShopPage() {
     <section className={styles.shop}>
       <h1>Shop</h1>
 
-      {/* BAR: desktop = bottoni; mobile/tablet = dropdown custom */}
+      {/* Filtri + Ordina per */}
       <div className={styles.filtersBar}>
-        {/* Desktop */}
+        {/* Desktop: bottoni */}
         <div className={styles.filtersDesktop}>
           <button className={styles.active}>Tutti</button>
           <button>Abiti</button>
@@ -102,30 +104,43 @@ export default function ShopPage() {
           <button>Novità</button>
         </div>
 
-        {/* Mobile / Tablet */}
+        {/* Mobile/Tablet: dropdown custom */}
         <div className={styles.dropdownRow}>
-          <CustomSelect label="Filtra per" options={filterOptions} className={styles.left} />
-          <CustomSelect label="Ordina per" options={sortOptions} className={styles.right} />
+          <CustomSelect label="Filtra per" options={filterOptions} />
+          <CustomSelect label="Ordina per" options={sortOptions} />
         </div>
       </div>
 
-      {/* GRID */}
+      {/* Griglia prodotti */}
       <div className={styles.grid}>
-        {products.map((p) => (
-          <div key={p.id} className={styles.card}>
-            <div className={styles.imageWrapper}>
-              <Image
-                src={p.image}
-                alt={p.name}
-                fill
-                className={styles.image}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-              />
+        {products.map((p) => {
+          const isFav = favorites.includes(p.id);
+          return (
+            <div key={p.id} className={styles.card}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={p.image}
+                  alt={p.name}
+                  fill
+                  className={styles.image}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                />
+                <button
+                  className={`${styles.favoriteButton} ${isFav ? styles.favActive : ""}`}
+                  onClick={() => toggleFavorite(p.id)}
+                  aria-label={isFav ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+                >
+                  {isFav ? <FaHeart /> : <FaRegHeart />}
+                </button>
+              </div>
+
+              <div className={styles.cardInfo}>
+                <h3>{p.name}</h3>
+                <p>{p.price}</p>
+              </div>
             </div>
-            <h3>{p.name}</h3>
-            <p>{p.price}</p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
